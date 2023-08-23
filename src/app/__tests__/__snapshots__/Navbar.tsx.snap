@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HamburgerMenuCategories HamburgerMenuCategories with no context renders a message div: 
+      <>
+        <div>No categories available.</div>
+      </>
+     1`] = `
+<div>
+  <div>
+    No categories available.
+  </div>
+</div>
+`;
+
+exports[`HamburgerMenuCategories HamburgerMobileMenuCategories with no context renders a message div: 
+      <>
+        <div>No categories available.</div>
+      </>
+     1`] = `
+<div>
+  <table
+    class="z-40 lg:hidden"
+  >
+    <thead />
+    <tbody />
+  </table>
+</div>
+`;
