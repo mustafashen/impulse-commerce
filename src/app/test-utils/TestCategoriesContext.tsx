@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext } from "react"
 
 type CategoryType = {
     id: string,
@@ -6,12 +6,16 @@ type CategoryType = {
     subCategories?: CategoryType[]
 }
 
+type CategoriesContextType = {
+    categories: CategoryType,
+    setCategories?: React.Dispatch<React.SetStateAction<CategoryType>>
+}
 
-const CategoriesContext = createContext<CategoryType>({id: "", name: ""})
+const CategoriesContext = createContext<CategoriesContextType>({categories: {id: "", name: ""}})
 
 export function CategoriesContextProvider({children} : {children: React.ReactElement}) {
     
-    const [categories, setCategories] = useState<CategoryType>({
+    const categories = {
         id: "all",
         name: "All Products",
         subCategories: [
@@ -19,10 +23,14 @@ export function CategoriesContextProvider({children} : {children: React.ReactEle
           {id: "ctg2", name: "Category 2", subCategories: [{id: "ctg2.1", name: "Category 2.1"},{id: "ctg2.2", name: "Category 2.2"},{id: "ctg2.3", name: "Category 2.3"}]},
           {id: "ctg3", name: "Category 3", subCategories: [{id: "ctg3.1", name: "Category 3.1"},{id: "ctg3.2", name: "Category 3.2", subCategories: [{id: "ctg3.2.1", name: "Category 3.2.1"}]},{id: "ctg3.3", name: "Category 3.3"}]},
         ]
-    })
+    }
 
+    const CategoriesContextStore: CategoriesContextType = {
+        categories
+    }
+    
     return (
-        <CategoriesContext.Provider value={categories}>
+        <CategoriesContext.Provider value={CategoriesContextStore}>
             {children}
         </CategoriesContext.Provider>
     )

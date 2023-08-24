@@ -1,10 +1,8 @@
-"use client"
-
 import Logo from "@/app/components/Navbar/Logo"
 import HamburgerMenu from "@/app/components/Navbar/HamburgerMenu"
 import NavbarUserSection from "@/app/components/Navbar/NavbarUserSection"
 import NavbarCategories from "@/app/components/Navbar/NavbarCategories"
-import { CategoriesContextProvider } from "@/app/components/Navbar/context/CategoriesContext"
+import { CategoriesContextProvider } from "./context/CategoriesContext"
 
 
 export default function Navbar({logoInMiddle = false, verticalMenu= false, categoryInMiddle= false}): React.ReactElement {
@@ -51,15 +49,17 @@ export default function Navbar({logoInMiddle = false, verticalMenu= false, categ
   }
 
   return (
-    <CategoriesContextProvider>  
+    <>  
       <nav className={`h-[--navbar-h] w-screen border-solid border-4 border-stone-900 absolute top-0 overflow-visible box-border`}>
           <ul className={"flex flex-row flex-nowrap w-full h-full justify-between max-lg:hidden"}>
-              {LayoutSelection()}
+              <CategoriesContextProvider>
+                {LayoutSelection()}
+              </CategoriesContextProvider>
           </ul>
           <ul className={"flex-row flex-nowrap w-full h-full justify-between hidden max-lg:flex"}>
               {MobileLayout}
           </ul>
       </nav>   
-    </CategoriesContextProvider>
+    </>
   )
 }
