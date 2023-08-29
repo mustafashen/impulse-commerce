@@ -7,8 +7,7 @@ type CategoryType = {
 }
 
 type CategoriesContextType = {
-    categories: CategoryType,
-    setCategories?: React.Dispatch<React.SetStateAction<CategoryType>>
+    categories: CategoryType
 }
 
 const CategoriesContext = createServerContext<{categories: CategoryType}>('CategoriesContext', {categories: {id: "", name: ""}})

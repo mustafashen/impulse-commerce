@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useCategoriesContext } from "@/app/components/Navbar/context/CategoriesContext";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useReducer } from "react";
 import Skeleton from "react-loading-skeleton";
 
 type CategoryType = {
@@ -13,10 +13,8 @@ type CategoryType = {
 
 export default function MobileHamburgerMenuCategories(): React.ReactElement {
   const {categories} = useCategoriesContext()
-  const [groupVisible, setGroupVisible] = useState<{[id: string]: string}>({})
-  useEffect(() => setGroupVisible(generateGroupTree(categories)),[])
   
-  function generateGroupTree(categories: CategoryType) {
+  function generateGroupTree(initialArg: CategoryType) {
 		// start from the root
     // check if category has children
     // if it has, give it a group visibility state
@@ -35,15 +33,16 @@ export default function MobileHamburgerMenuCategories(): React.ReactElement {
       }
     }
     
-    traverseTree(categories)
+    traverseTree(initialArg)
     groupVisibility.all = "table-row"
 
 		return groupVisibility
 	}
 
-  function switchGroupView(groupID: string) {
-    let newState = {...groupVisible}
-    
+  function switchGroupView(state, action) {
+    let newState = {...state}
+    const groupID = action
+
     for (const key of Object.keys(newState)) {
         if (newState[key]) {
           if (key == groupID) {
@@ -53,11 +52,13 @@ export default function MobileHamburgerMenuCategories(): React.ReactElement {
           }
         }
     }
-    setGroupVisible(newState)
+    return newState
   }
 
+  const [groupVisibilityTree, dispatchGroupVisibilityTree] = useReducer(switchGroupView, categories, generateGroupTree)
+
   function handleViewSwitch(groupID: string) {
-    switchGroupView(groupID)
+    dispatchGroupVisibilityTree(groupID)
   }
 
 	function ParseCategories(category: CategoryType): JSX.Element[] {
@@ -79,7 +80,7 @@ export default function MobileHamburgerMenuCategories(): React.ReactElement {
 
       if (subCategories) {
         groupRows.push(
-          <tr key={id} className={`${groupVisible[id]}`}>
+          <tr key={id} className={`${groupVisibilityTree[id]}`}>
             <td className="block"><b>{name}</b></td>
             <td className="block">
               <button onClick={() => {handleViewSwitch(parentGroup.id)}}>{`<${parentGroup.name}`}</button>
@@ -130,20 +131,25 @@ export default function MobileHamburgerMenuCategories(): React.ReactElement {
   }
 
   return (
-    <table className = {`z-40 lg:hidden`}>
-    <thead></thead>
-    <tbody>
-      {
-        groupVisible ? 
+    <>
+    { 
+    categories.id ?
+    <table>
+      <thead></thead>
+      <tbody>
+        {
           <Suspense fallback={<Skeleton/>}>
-            {ParseCategories(categories).map((el: JSX.Element) => {
+            {
+            ParseCategories(categories).map((el: JSX.Element) => {
               return el
-            })}
+            })
+            }
           </Suspense>
-          : 
-          <div>No categories available.</div>
-      }
-    </tbody>
-    </table>
+        }
+      </tbody>
+    </table> :
+    <div>No category found</div>
+    }
+    </>
   )
 }

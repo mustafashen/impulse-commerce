@@ -46,7 +46,7 @@ export default function HamburgerMenu(): React.ReactElement {
         <ul id="hm-ctg-wrap" className = {`h-[--vertical-menu-h] w-[--vertical-menu-w] pt-[--vertical-menu-pt] z-40 max-lg:hidden ${menuVisible.isVisible}`}>
           <HamburgerMenuCategories/>
         </ul>
-        <div id="mhm-ctg-wrap" className={`${menuVisible.isVisible}`}>
+        <div id="mhm-ctg-wrap z-50 lg:hidden" className={`${menuVisible.isVisible}`}>
           <MobileHamburgerMenuCategories/>
         </div>
       </li>

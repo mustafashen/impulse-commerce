@@ -49,17 +49,15 @@ export default function Navbar({logoInMiddle = false, verticalMenu= false, categ
   }
 
   return (
-    <>  
-      <nav className={`h-[--navbar-h] w-screen border-solid border-4 border-stone-900 absolute top-0 overflow-visible box-border`}>
+    <CategoriesContextProvider>
+      <nav className={`h-[--navbar-h] w-screen border-solid border-4 border-stone-900 top-0 overflow-visible box-border z-40 fixed`}>
           <ul className={"flex flex-row flex-nowrap w-full h-full justify-between max-lg:hidden"}>
-              <CategoriesContextProvider>
                 {LayoutSelection()}
-              </CategoriesContextProvider>
           </ul>
           <ul className={"flex-row flex-nowrap w-full h-full justify-between hidden max-lg:flex"}>
               {MobileLayout}
           </ul>
       </nav>   
-    </>
+    </CategoriesContextProvider>
   )
 }

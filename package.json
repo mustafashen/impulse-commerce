@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest --watch",
+    "clear-test-cache": "jest --clear-cache",
     "test:ci": "jest --ci"
   },
   "dependencies": {

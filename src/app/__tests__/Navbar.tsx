@@ -1,5 +1,5 @@
 import { fireEvent, getByRole, render, screen } from '@testing-library/react'
-// import Navbar from '@/app/components/Navbar/Navbar'
+import Navbar from '@/app/components/Navbar/Navbar'
 import '@testing-library/jest-dom'
 import HamburgerMenu from '@/app/components/Navbar/HamburgerMenu'
 import HamburgerMenuCategories from '@/app/components/Navbar/HamburgerMenuCategories'

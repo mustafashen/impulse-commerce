@@ -1,22 +1,37 @@
 'use client'
 
-import { Reducer, useReducer, useState } from "react"
+import { useReducer, useState, useEffect } from "react"
+import CarouselItem from "./CarouselItem";
 
+type ViewType = {
+  view: number
+}
 
+type ActionType = {
+  type: "PREV" | "NEXT"
+}
 
 export default function Carousel() {
   const carouselViewList = [{id: "cv-1", bc: "bg-red-400"},{id: "cv-2", bc: "bg-blue-400"},{id: "cv-3", bc: "bg-green-400"},{id: "cv-4", bc: "bg-yellow-200"}]
-  
-  const [touchStartLoc, setTouchStartLoc] = useState()
-  const [touchMoveLoc, setTouchMoveLoc] = useState()
+  const [touchStartLoc, setTouchStartLoc] = useState(0)
+  const [touchMoveLoc, setTouchMoveLoc] = useState(0)
+  const [isOpaque, setIsOpaque] = useState(false)
 
-  const initialView = {
+  useEffect(() => {
+    setInterval(() => {
+      next()
+    }, 5000)
+  }, [])
+
+  const initialView: ViewType = {
     view: 0
   }
   
-  function viewReducer(currentView: {view: number}, action: {type: string}) {
+  function viewReducer(currentView: ViewType, action: ActionType) {
+    setIsOpaque(false)
     setTouchStartLoc(0)
     setTouchMoveLoc(0)
+
     switch (action.type) {
       case 'NEXT':
         if (currentView.view === carouselViewList.length - 1) {
@@ -47,14 +62,14 @@ export default function Carousel() {
 
 
   
-  function handleTouchStart(e) {
-    setTouchStartLoc(e.touches[0].clientX)
+  function handleTouchStart(event: TouchEvent) {
+    setTouchStartLoc(event.touches[0].clientX)
   }
 
-  function handleTouchMove(e) {
+  function handleTouchMove(event: TouchEvent) {
     if (!touchStartLoc) return false
 
-    setTouchMoveLoc(e.touches[0].clientX)
+    setTouchMoveLoc(event.touches[0].clientX)
   }
 
   function handleTouchEnd(e) {
@@ -65,9 +80,10 @@ export default function Carousel() {
 
     setTouchStartLoc(0)
     setTouchMoveLoc(0)
-  }
+  }currentView
 
   function handleSwipe(swipeAmount: number) {
+
     if (swipeAmount > 200) { 
       prev()
     } else if (swipeAmount < -200) {
@@ -83,9 +99,13 @@ export default function Carousel() {
     dispatchCurrentView({type: 'NEXT'})
   }
 
+  function handleOpaqueControl(value: boolean) {
+    setIsOpaque(value)
+  }
+
   return (
     <div
-      className="w-full h-full relative flex flex-row flex-nowrap [&>*]:w-full [&>*]:min-w-full [&>*]:h-full overflow-hidden"
+      className="w-full h-full relative flex flex-row flex-nowrap [&>*]:w-full [&>*]:min-w-full [&>*]:h-full overflow-hidden -z-0"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -103,10 +123,7 @@ export default function Carousel() {
         </button>
       </div>
       { 
-        <div 
-          key={carouselViewList[currentView.view].id} 
-          id={carouselViewList[currentView.view].id} 
-          className={`${carouselViewList[currentView.view].bc}`}></div>
+        <CarouselItem myView={carouselViewList[currentView.view]} isOpaque={isOpaque} handleOpaqueControl={handleOpaqueControl}/>
       }
     </div>
   )
