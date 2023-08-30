@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useCategoriesContext } from "@/app/components/Navbar/context/CategoriesContext";
+import { useCategoriesContext } from "@/app/contexts/CategoriesContext";
 import { Suspense } from "react";
 import Skeleton from "react-loading-skeleton";
 
@@ -14,6 +14,9 @@ export default function NavbarCategories(): React.ReactElement {
   
   function ParseNavbarCategories(category: CategoryType, layer: number = 0): JSX.Element {
     const { name, id, subCategories } = category
+    // TODO?: For a better implementation of recursive sub menus
+    // Instead of using group hover/focus 
+    // create a state where we keep track of which components to keep visible
 
     let [layerGroup, layerInvisibleElement]: [string, string] = ["", ""]
     switch (layer) {

@@ -6,6 +6,8 @@ import Navbar from '@/app/components/Navbar/Navbar'
 import MobileBottomNavbar from './components/Navbar/MobileBottomNavbar'
 import { CartContextProvider } from "@/app/contexts/CartContext"
 import { FavoritesContextProvider } from "@/app/contexts/FavoriteContext"
+import CartFavoriteSideMenuWrapper from './components/Navbar/CartFavoriteSideMenuWrapper'
+import { CartFavViewContextProvider } from './contexts/CartFavViewContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,10 +25,12 @@ export default function RootLayout({
     <html lang="en">
       <CartContextProvider>
       <FavoritesContextProvider>
-        <body className={inter.className}>
+      <CartFavViewContextProvider>
+       <body className={inter.className}>
           <header className='mb-[--navbar-h] z-50'>
             <Navbar logoInMiddle={false} verticalMenu={false} categoryInMiddle={true}/>
             <MobileBottomNavbar/>
+            <CartFavoriteSideMenuWrapper/>
           </header>
           <main>
             {children}
@@ -34,6 +38,7 @@ export default function RootLayout({
           <footer>
           </footer>
         </body>
+      </CartFavViewContextProvider>
       </FavoritesContextProvider>
       </CartContextProvider>
     </html>

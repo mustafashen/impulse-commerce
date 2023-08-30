@@ -4,12 +4,23 @@ import Image from "next/image"
 import productImage from "../../../../public/images/product_placeholder.jpg"
 import { useCartContext } from "@/app/contexts/CartContext"
 import { useFavoritesContext } from "@/app/contexts/FavoriteContext"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 export default function ProductCard({productInfo}) {
   const {productID, productName, productPrice} = productInfo
   const {dispatchCartItems} = useCartContext()
   const {favoriteItems, dispatchFavoriteItems} = useFavoritesContext()
+  const [favButtonState, setFavButtonState] = useState('notFav')
+  useEffect(() => {
+    const thisFavIndex = favoriteItems.findIndex((el) => el.productID === productID)
+
+    if (thisFavIndex !== -1) {
+      setFavButtonState('fav')
+    } else {
+      setFavButtonState('notFav')
+    }
+
+  }, [favoriteItems])
   
   function handleAddCart() {
     dispatchCartItems({type: 'ADD', cartItem: {productID, productName, productPrice}})
@@ -21,7 +32,12 @@ export default function ProductCard({productInfo}) {
 
   return (
     <li className="group/product-card bg-slate-400 relative border-solid border-4">
-      <button onClick={handleAddFavorites} className="absolute flex justify-center items-center top-2 right-2 bg-red-400 rounded-full w-12 h-12 invisible group-hover/product-card:visible">Heart</button>
+      <button 
+        onClick={handleAddFavorites} 
+        className={`absolute flex justify-center items-center top-2 right-2 rounded-full w-12 h-12 invisible group-hover/product-card:visible
+        ${favButtonState === 'fav' ? 'bg-red-400' : 'bg-white'}`}>
+          Heart
+        </button>
       <div id="image" className="flex flex-col justify-center w-full h-3/4 bg-slate-500 overflow-clip">
         <Image
           src={productImage}

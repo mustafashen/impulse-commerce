@@ -48,12 +48,14 @@ function reduceCartItems(state: ItemsType, action: {type: string, cartItem: Item
     let {type, cartItem} = action
     const {productID} = cartItem
 
-    stateCopy.map((item: ItemType) => {
-        if (item.productID === productID) {
-            type = 'QTY_INC'
-            return
-        }
-    })
+    if (type === 'ADD') {
+        stateCopy.map((item: ItemType) => {
+            if (item.productID === productID) {
+                type = 'QTY_INC'
+                return
+            }
+        })
+    }
 
     switch (type) {
         case 'ADD':
@@ -72,16 +74,17 @@ function reduceCartItems(state: ItemsType, action: {type: string, cartItem: Item
             break;
     }
 
-    stateCopy.map((item: ItemType, idx: number) => {
-        if (item.productID === productID) {
-            if (item.quantity === 0) {
-                stateCopy.splice(idx, 1)
-                return
+    if (type === 'QTY_DEC') {
+        stateCopy.map((item: ItemType, idx: number) => {
+            if (item.productID === productID) {
+                if (item.quantity === 0) {
+                    stateCopy.splice(idx, 1)
+                    return
+                }
             }
-        }
-    })
+        })
+    }
 
-    console.log(stateCopy)
     return stateCopy
 }
 

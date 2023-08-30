@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useCategoriesContext } from "@/app/components/Navbar/context/CategoriesContext";
+import { useCategoriesContext } from "@/app/contexts/CategoriesContext";
 import { Suspense } from "react";
 import Skeleton from "react-loading-skeleton";
 

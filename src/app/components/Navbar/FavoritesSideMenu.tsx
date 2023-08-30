@@ -1,14 +1,18 @@
 import { useFavoritesContext } from "@/app/contexts/FavoriteContext"
 
 export default function FavoritesSideMenu() {
-  const {favoriteItems} = useFavoritesContext()
+  const {favoriteItems, dispatchFavoriteItems} = useFavoritesContext()
+
+  function handleRemoveFav({productID}: {productID: string}) {
+    dispatchFavoriteItems({favoriteItem: {productID}})
+  }
 
   return (
-    <ul className="invisible group-hover:visible  group-focus-within:visible">
+    <ul>
       {
         favoriteItems.map((item: {productID: string, productName: string}) => {
           return <li key={item.productID}>
-              <span>{item.productID}</span>
+              <button onClick={() => handleRemoveFav({productID: item.productID})}>x</button>
               <span>{item.productName}</span>
           </li>
         })
