@@ -24,10 +24,12 @@ export default function Slider() {
     {productID: 67, productName: 'Product 6', productPrice: '88'},
   
   ]
-  const scrollRef = useRef(null)
+
+  const scrollRef = useRef<null | HTMLUListElement>(null)
 
   function scroll(scrollOffset: number) {
-    scrollRef.current.scrollLeft += scrollOffset
+    if (scrollRef.current)
+      scrollRef.current.scrollLeft += scrollOffset
   }
 
   function next() {

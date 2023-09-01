@@ -22,6 +22,7 @@ export default function MobileHamburgerMenuCategories(): React.ReactElement {
     // recall the function on them
 
 		let groupVisibility: {[categoryID: string]: string} = {}
+
 		function traverseTree(category: CategoryType) {
 			const { categoryID, subCategories } = category
 
@@ -39,7 +40,7 @@ export default function MobileHamburgerMenuCategories(): React.ReactElement {
 		return groupVisibility
 	}
 
-  function switchGroupView(state, action) {
+  function switchGroupView(state: {[categoryID: string]: string}, action: string) {
     let newState = {...state}
     const groupID = action
 

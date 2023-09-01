@@ -11,8 +11,15 @@ type ActionType = {
   type: "PREV" | "NEXT"
 }
 
+type CarouselView = {
+  id: string,
+  bc: string
+}
+
+type CarouselViewList = CarouselView[]
+
 export default function Carousel() {
-  const carouselViewList = [{id: "cv-1", bc: "bg-red-400"},{id: "cv-2", bc: "bg-blue-400"},{id: "cv-3", bc: "bg-green-400"},{id: "cv-4", bc: "bg-yellow-200"}]
+  const carouselViewList: CarouselViewList = [{id: "cv-1", bc: "bg-red-400"},{id: "cv-2", bc: "bg-blue-400"},{id: "cv-3", bc: "bg-green-400"},{id: "cv-4", bc: "bg-yellow-200"}]
   const [touchStartLoc, setTouchStartLoc] = useState(0)
   const [touchMoveLoc, setTouchMoveLoc] = useState(0)
   const [isOpaque, setIsOpaque] = useState(false)
@@ -60,17 +67,17 @@ export default function Carousel() {
   
   const [currentView, dispatchCurrentView] = useReducer(viewReducer as Reducer<ViewType,ActionType>, initialView)
   
-  function handleTouchStart(event: TouchEvent) {
+  function handleTouchStart(event: React.TouchEvent) {
     setTouchStartLoc(event.touches[0].clientX)
   }
 
-  function handleTouchMove(event: TouchEvent) {
+  function handleTouchMove(event: React.TouchEvent) {
     if (!touchStartLoc) return false
 
     setTouchMoveLoc(event.touches[0].clientX)
   }
 
-  function handleTouchEnd(e) {
+  function handleTouchEnd() {
     if (touchStartLoc && touchMoveLoc) {
       const swipeAmount = touchMoveLoc - touchStartLoc
       handleSwipe(swipeAmount)

@@ -7,13 +7,21 @@ import { useFavoritesContext } from "@/contexts/FavoriteContext"
 import { useEffect, useState } from "react"
 import Link from "next/link"
 
-export default function ProductCard({productInfo}) {
+type ItemType = {
+  productID: string,
+  productName: string,
+  productPrice: string,
+  quantity: number
+}
+
+export default function ProductCard({productInfo}: {productInfo: ItemType}) {
   const {productID, productName, productPrice} = productInfo
-  const {dispatchCartItems} = useCartContext()
-  const {favoriteItems, dispatchFavoriteItems} = useFavoritesContext()
+  const {dispatchCartItems}: any = useCartContext()
+  const {favoriteItems, dispatchFavoriteItems}: any = useFavoritesContext()
   const [favButtonState, setFavButtonState] = useState('notFav')
+
   useEffect(() => {
-    const thisFavIndex = favoriteItems.findIndex((el) => el.productID === productID)
+    const thisFavIndex = favoriteItems.findIndex((el: ItemType) => el.productID === productID)
 
     if (thisFavIndex !== -1) {
       setFavButtonState('fav')

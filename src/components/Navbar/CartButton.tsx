@@ -2,9 +2,10 @@
 import { useCartContext } from "@/contexts/CartContext"
 import { useCartFavViewContext } from "@/contexts/CartFavViewContext"
 
-export default function Cart() {
-  const {cartFavView, setCartFavView} = useCartFavViewContext()
-  const {cartItems} = useCartContext()
+
+export default function CartButton() {
+  const {cartFavView, setCartFavView}: any = useCartFavViewContext()
+  const {cartItems}: any  = useCartContext()
 
   function handleCartToggle() {
     if (cartFavView !== 'cart')

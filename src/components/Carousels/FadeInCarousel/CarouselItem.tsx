@@ -1,6 +1,17 @@
 import React, { useEffect } from 'react'
 
-export default function CarouselItem({myView, handleOpaqueControl, isOpaque}) {
+type CarouselView = {
+  id: string,
+  bc: string
+}
+
+type Props = {
+  myView: CarouselView,
+  handleOpaqueControl: (isOpaque: boolean) => void,
+  isOpaque: boolean
+}
+
+export default function CarouselItem({myView, handleOpaqueControl, isOpaque}: Props) {
 
   useEffect(() => {
     setTimeout(() => {

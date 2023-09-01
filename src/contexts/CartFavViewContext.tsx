@@ -1,6 +1,13 @@
 import { useContext, createContext, useState } from "react";
 
-const CartFavViewContext = createContext({})
+type CartFavViewType = string
+
+type CartFavViewContextType = {
+  cartFavView: CartFavViewType
+  setCartFavView: (cartFavView: CartFavViewType) => void
+}
+
+const CartFavViewContext = createContext<CartFavViewContextType | null>(null)
 
 export function CartFavViewContextProvider({children}: {children: React.ReactElement}) {
   

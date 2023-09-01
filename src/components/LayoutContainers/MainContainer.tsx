@@ -9,10 +9,10 @@ import { CartFavViewContextProvider } from '@/contexts/CartFavViewContext'
 
 export default function MainContainer({children}: {children: React.ReactNode}) {
   return (
-    <div>
-      <CartContextProvider>
-      <FavoritesContextProvider>
-      <CartFavViewContextProvider>
+    <CartContextProvider>
+    <FavoritesContextProvider>
+    <CartFavViewContextProvider>
+    <>
         <header className='mb-[--navbar-h] z-50'>
           <Navbar logoInMiddle={false} verticalMenu={true} categoryInMiddle={true}/>
           <MobileBottomNavbar/>
@@ -23,9 +23,9 @@ export default function MainContainer({children}: {children: React.ReactNode}) {
         </main>
         <footer>
         </footer>
-      </CartFavViewContextProvider>
-      </FavoritesContextProvider>
-      </CartContextProvider>
-    </div>
+    </>
+    </CartFavViewContextProvider>
+    </FavoritesContextProvider>
+    </CartContextProvider>
   )
 }

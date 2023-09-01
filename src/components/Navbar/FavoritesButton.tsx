@@ -2,9 +2,9 @@
 import { useFavoritesContext } from "@/contexts/FavoriteContext"
 import { useCartFavViewContext } from "@/contexts/CartFavViewContext"
 
-export default function Favorites() {
-  const {cartFavView, setCartFavView} = useCartFavViewContext()
-  const {favoriteItems} = useFavoritesContext()
+export default function FavoritesButton() {
+  const {cartFavView, setCartFavView}: any = useCartFavViewContext()
+  const {favoriteItems}: any = useFavoritesContext()
 
   function handleFavToggle() {
     if (cartFavView !== 'fav')

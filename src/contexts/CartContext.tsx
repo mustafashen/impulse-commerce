@@ -1,5 +1,7 @@
 import { createContext, useContext, useReducer } from "react"
 
+type ActionType = 'ADD' | 'DELETE' | 'QTY_INC' | 'QTY_DEC'
+
 type ItemType = {
     productID: string,
     productName: string,
@@ -11,7 +13,7 @@ type ItemsType = ItemType[]
 
 type CartContextType = {
     cartItems: ItemsType
-    dispatchCartItems?: React.Dispatch<React.SetStateAction<ItemsType>>
+    dispatchCartItems?: (action: {type: ActionType, cartItem: ItemType}) => void
 }
 
 const addCartItem = (state: ItemsType, cartItem: ItemType) => [...state, {...cartItem, quantity: 1}]
@@ -43,7 +45,7 @@ const qtyDecCartItem = (state: ItemsType, productID: string) => {
     return state
 }
 
-function reduceCartItems(state: ItemsType, action: {type: string, cartItem: ItemType}) {
+function reduceCartItems(state: ItemsType, action: {type: ActionType, cartItem: ItemType}) {
     let stateCopy = [...state]
     let {type, cartItem} = action
     const {productID} = cartItem
@@ -88,7 +90,7 @@ function reduceCartItems(state: ItemsType, action: {type: string, cartItem: Item
     return stateCopy
 }
 
-const CartContext = createContext({})
+const CartContext = createContext<CartContextType | null>(null)
 
 export function CartContextProvider({children} : {children: React.ReactElement}) {
 

@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer, useState } from "react"
+import { createContext, useContext, useReducer } from "react"
 
 type ItemType = {
     productID: string,
@@ -10,10 +10,10 @@ type ItemsType = ItemType[]
 
 type FavoritesContextType = {
     favoriteItems: ItemsType,
-    dispatchFavoriteItems?: React.Dispatch<React.SetStateAction<ItemsType>>
+    dispatchFavoriteItems?: (action: {favoriteItem: ItemType}) => void
 }
 
-function favoritesReducer(state, action) {
+function favoritesReducer(state: ItemType[], action: {favoriteItem: ItemType}) {
     let stateCopy = [...state]
     let {favoriteItem} = action
     const {productID} = favoriteItem

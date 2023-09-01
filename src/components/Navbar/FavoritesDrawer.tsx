@@ -1,7 +1,7 @@
 import { useFavoritesContext } from "@/contexts/FavoriteContext"
 
 export default function FavoritesDrawer() {
-  const {favoriteItems, dispatchFavoriteItems} = useFavoritesContext()
+  const {favoriteItems, dispatchFavoriteItems}: any = useFavoritesContext()
 
   function handleRemoveFav({productID}: {productID: string}) {
     dispatchFavoriteItems({favoriteItem: {productID}})
