@@ -3,27 +3,16 @@ import { useRef } from "react";
 import ProductCard from "@/components/ProductGrid/ProductCard";
 
 export default function Slider() {
-  const arbitaryData = [
-    {productID: 1, productName: 'Product 1', productPrice: '23'},
-    {productID: 2, productName: 'Product 2', productPrice: '54'},
-    {productID: 3, productName: 'Product 3', productPrice: '55'},
-    {productID: 4, productName: 'Product 4', productPrice: '12'},
-    {productID: 5, productName: 'Product 5', productPrice: '56'},
-    {productID: 6, productName: 'Product 6', productPrice: '88'},
-    {productID: 7, productName: 'Product 1', productPrice: '23'},
-    {productID: 21, productName: 'Product 2', productPrice: '54'},
-    {productID: 32, productName: 'Product 3', productPrice: '55'},
-    {productID: 42, productName: 'Product 4', productPrice: '12'},
-    {productID: 53, productName: 'Product 5', productPrice: '56'},
-    {productID: 64, productName: 'Product 6', productPrice: '88'},
-    {productID: 13, productName: 'Product 1', productPrice: '23'},
-    {productID: 23, productName: 'Product 2', productPrice: '54'},
-    {productID: 31, productName: 'Product 3', productPrice: '55'},
-    {productID: 45, productName: 'Product 4', productPrice: '12'},
-    {productID: 56, productName: 'Product 5', productPrice: '56'},
-    {productID: 67, productName: 'Product 6', productPrice: '88'},
-  
-  ]
+  const arbitaryData = {
+    products: [
+      {productID: '1', productName: 'Product 1', productPrice: '23', quantity: 20},
+      {productID: '2', productName: 'Product 2', productPrice: '54', quantity: 20},
+      {productID: '3', productName: 'Product 3', productPrice: '55', quantity: 20},
+      {productID: '4', productName: 'Product 4', productPrice: '12', quantity: 20},
+      {productID: '5', productName: 'Product 5', productPrice: '56', quantity: 20},
+      {productID: '6', productName: 'Product 6', productPrice: '88', quantity: 20}
+    ]
+  }
 
   const scrollRef = useRef<null | HTMLUListElement>(null)
 
@@ -57,7 +46,7 @@ export default function Slider() {
       </div>
       <ul ref={scrollRef} className="overflow-x-scroll scroll-smooth snap-x overflow-y-hidden flex flex-row justify-center flex-nowrap items-center w-full h-full [&>*]:w-[160px] [&>*]:min-w-[160px] [&>*]:h-full gap-x-4 ">
         {
-          arbitaryData.map((el) => {
+          arbitaryData.products.map((el) => {
             return <ProductCard key={el.productID} productInfo={el}/>
           })
         }

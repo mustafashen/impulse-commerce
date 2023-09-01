@@ -2,13 +2,14 @@ import ProductCard from "./ProductCard"
 
 
 export default function ProductGrid() {
-  const categoryProducts = {products: [
-      {productID: 1, productName: 'Product 1', productPrice: '23', quantity: 20},
-      {productID: 2, productName: 'Product 2', productPrice: '54', quantity: 20},
-      {productID: 3, productName: 'Product 3', productPrice: '55', quantity: 20},
-      {productID: 4, productName: 'Product 4', productPrice: '12', quantity: 20},
-      {productID: 5, productName: 'Product 5', productPrice: '56', quantity: 20},
-      {productID: 6, productName: 'Product 6', productPrice: '88', quantity: 20}
+  const categoryProducts = {
+    products: [
+      {productID: '1', productName: 'Product 1', productPrice: '23', quantity: 20},
+      {productID: '2', productName: 'Product 2', productPrice: '54', quantity: 20},
+      {productID: '3', productName: 'Product 3', productPrice: '55', quantity: 20},
+      {productID: '4', productName: 'Product 4', productPrice: '12', quantity: 20},
+      {productID: '5', productName: 'Product 5', productPrice: '56', quantity: 20},
+      {productID: '6', productName: 'Product 6', productPrice: '88', quantity: 20}
     ]
   }
   return (
