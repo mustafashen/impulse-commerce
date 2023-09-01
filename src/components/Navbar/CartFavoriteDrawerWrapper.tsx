@@ -3,7 +3,7 @@ import FavoritesSideMenu from "./FavoritesDrawer";
 import { useCartFavViewContext } from "@/contexts/CartFavViewContext";
 
 export default function CartFavoritesDrawerWrapper() {
-  const {cartFavView, setCartFavView} = useCartFavViewContext()
+  const {cartFavView, setCartFavView}: any = useCartFavViewContext()
 
   function menuSelection(view: string) {
     switch (view) {
