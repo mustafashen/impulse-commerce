@@ -92,7 +92,6 @@ const CartContext = createContext({})
 
 export function CartContextProvider({children} : {children: React.ReactElement}) {
 
-//   const [cartItems, setCartItems] = useState<ItemsType>([])
   const [cartItems, dispatchCartItems] = useReducer(reduceCartItems, [])
 
     

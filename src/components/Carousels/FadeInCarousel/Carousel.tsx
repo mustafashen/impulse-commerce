@@ -1,6 +1,6 @@
 'use client'
 
-import { useReducer, useState, useEffect } from "react"
+import { useReducer, useState, useEffect, Reducer } from "react"
 import CarouselItem from "./CarouselItem";
 
 type ViewType = {
@@ -58,9 +58,7 @@ export default function Carousel() {
     }
   }
   
-  const [currentView, dispatchCurrentView] = useReducer(viewReducer, initialView)
-
-
+  const [currentView, dispatchCurrentView] = useReducer(viewReducer as Reducer<ViewType,ActionType>, initialView)
   
   function handleTouchStart(event: TouchEvent) {
     setTouchStartLoc(event.touches[0].clientX)
@@ -80,7 +78,7 @@ export default function Carousel() {
 
     setTouchStartLoc(0)
     setTouchMoveLoc(0)
-  }currentView
+  }
 
   function handleSwipe(swipeAmount: number) {
 
