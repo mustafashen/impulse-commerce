@@ -1,6 +1,6 @@
 "use client"
-import { useFavoritesContext } from "@/app/contexts/FavoriteContext"
-import { useCartFavViewContext } from "@/app/contexts/CartFavViewContext"
+import { useFavoritesContext } from "@/contexts/FavoriteContext"
+import { useCartFavViewContext } from "@/contexts/CartFavViewContext"
 
 export default function Favorites() {
   const {cartFavView, setCartFavView} = useCartFavViewContext()

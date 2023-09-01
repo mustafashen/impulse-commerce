@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { useCategoriesContext } from "@/app/contexts/CategoriesContext";
+import { useCategoriesContext } from "@/contexts/CategoriesContext";
 import { Suspense } from "react";
 import Skeleton from "react-loading-skeleton";
 
 type CategoryType = {
-  id: string,
-  name: string,
+  categoryID: string,
+  categoryName: string,
   subCategories?: CategoryType[]
 }
 
@@ -13,9 +13,9 @@ export default function HamburgerMenuCategories(): React.ReactElement {
   const {categories} = useCategoriesContext()
 
   function ParseCategories({category, layer = 0}: {category: CategoryType, layer?: number}): JSX.Element {
-    const { name, id, subCategories } = category
+    const { categoryName, categoryID, subCategories } = category
 
-    // Give each parent container group name,
+    // Give each parent container group categoryName,
     // and each of their children list visible on focus attribute
     // This has to defined as a distinct value because tailwind compiler cannot handle indistinct values
     let [layerGroup, layerInvisibleElement]: [string, string] = ["", ""] 
@@ -50,9 +50,9 @@ export default function HamburgerMenuCategories(): React.ReactElement {
     // inside it, create an unorganized list,
     // recall the function inside the list
     if (subCategories) {
-      return <li className={ListElementStyle} key={id}>
+      return <li className={ListElementStyle} key={categoryID}>
         <button className="h-[--sub-cat-h]">
-          {`${name}>`}
+          {`${categoryName}>`}
         </button>
         <ul className={ChildListStyle()}>
             {subCategories.map((el: CategoryType) => {
@@ -61,10 +61,10 @@ export default function HamburgerMenuCategories(): React.ReactElement {
             <li className="h-[--sub-cat-h] flex flex-col justify-center">
                 <Link
                   href={{
-                  pathname: `/categories/${id}`,
-                  query: {name}
+                  pathname: `/categories/${categoryID}`,
+                  query: {categoryName}
                   }}>
-                  {`[All ${name}]`}
+                  {`[All ${categoryName}]`}
                 </Link>
             </li>
         </ul>
@@ -72,13 +72,13 @@ export default function HamburgerMenuCategories(): React.ReactElement {
     }
 
     // If children has no sub category, return a category list element
-    return <li key={id} className="h-[--sub-cat-h] flex flex-col justify-center">
+    return <li key={categoryID} className="h-[--sub-cat-h] flex flex-col justify-center">
         <Link
           href={{
-          pathname: `/categories/${id}`,
-          query: {name}
+          pathname: `/categories/${categoryID}`,
+          query: {categoryName}
           }}>
-          {name}
+          {categoryName}
         </Link>
     </li>
   }
@@ -89,7 +89,7 @@ export default function HamburgerMenuCategories(): React.ReactElement {
         categories.subCategories ?
           <Suspense fallback={<Skeleton/>}>
             {categories.subCategories.map((el: CategoryType) => (
-              <ParseCategories key={el.id} category={el} />
+              <ParseCategories key={el.categoryID} category={el} />
             ))}
           </Suspense>
         :

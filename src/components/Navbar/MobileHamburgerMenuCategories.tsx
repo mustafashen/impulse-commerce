@@ -1,13 +1,13 @@
 "use client"
 
 import Link from "next/link";
-import { useCategoriesContext } from "@/app/contexts/CategoriesContext";
+import { useCategoriesContext } from "@/contexts/CategoriesContext";
 import { Suspense, useReducer } from "react";
 import Skeleton from "react-loading-skeleton";
 
 type CategoryType = {
-  id: string,
-  name: string,
+  categoryID: string,
+  categoryName: string,
   subCategories?: CategoryType[]
 }
 
@@ -21,12 +21,12 @@ export default function MobileHamburgerMenuCategories(): React.ReactElement {
     // iterate each of its children
     // recall the function on them
 
-		let groupVisibility: {[id: string]: string} = {}
+		let groupVisibility: {[categoryID: string]: string} = {}
 		function traverseTree(category: CategoryType) {
-			const { id, subCategories } = category
+			const { categoryID, subCategories } = category
 
 			if (subCategories) {
-        groupVisibility[id] = "hidden"
+        groupVisibility[categoryID] = "hidden"
         subCategories.forEach((subCategory: CategoryType) => {
           traverseTree(subCategory)
         })
@@ -76,19 +76,19 @@ export default function MobileHamburgerMenuCategories(): React.ReactElement {
     
     const groupRows: JSX.Element[] = []
     function generateCategoryGroups(category: CategoryType, parentGroup: CategoryType): void {
-      const {subCategories, id, name} = category
+      const {subCategories, categoryID, categoryName} = category
 
       if (subCategories) {
         groupRows.push(
-          <tr key={id} className={`${groupVisibilityTree[id]}`}>
-            <td className="block"><b>{name}</b></td>
+          <tr key={categoryID} className={`${groupVisibilityTree[categoryID]}`}>
+            <td className="block"><b>{categoryName}</b></td>
             <td className="block">
-              <button onClick={() => {handleViewSwitch(parentGroup.id)}}>{`<${parentGroup.name}`}</button>
+              <button onClick={() => {handleViewSwitch(parentGroup.categoryID)}}>{`<${parentGroup.categoryName}`}</button>
             </td>
 
             {
               subCategories.map((subCategory: CategoryType) => {
-                const {id: subID, name: subName, subCategories: subSubCategories} = subCategory
+                const {categoryID: subID, categoryName: subName, subCategories: subSubCategories} = subCategory
                 generateCategoryGroups(subCategory, category)
                 if (subSubCategories) {
                   return <td key={subID} className="block">
@@ -100,7 +100,7 @@ export default function MobileHamburgerMenuCategories(): React.ReactElement {
                   return <td key={subID} className="block">
                     <Link
                     href={{
-                    pathname: `/categories/${id}`,
+                    pathname: `/categories/${categoryID}`,
                     query: {subName}
                     }}>
                       {subName}
@@ -113,10 +113,10 @@ export default function MobileHamburgerMenuCategories(): React.ReactElement {
             <td className="block">
               <Link
               href={{
-              pathname: `/categories/${id}`,
-              query: {name}
+              pathname: `/categories/${categoryID}`,
+              query: {categoryName}
               }}>
-                {`[${name}]`}
+                {`[${categoryName}]`}
               </Link>
             </td>
           </tr>
@@ -133,7 +133,7 @@ export default function MobileHamburgerMenuCategories(): React.ReactElement {
   return (
     <>
     { 
-    categories.id ?
+    categories.categoryID ?
     <table>
       <thead></thead>
       <tbody>

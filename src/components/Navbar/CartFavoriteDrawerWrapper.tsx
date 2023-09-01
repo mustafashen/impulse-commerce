@@ -1,8 +1,8 @@
-import CartSideMenu from "./CartSideMenu";
-import FavoritesSideMenu from "./FavoritesSideMenu";
-import { useCartFavViewContext } from "@/app/contexts/CartFavViewContext";
+import CartSideMenu from "./CartDrawer";
+import FavoritesSideMenu from "./FavoritesDrawer";
+import { useCartFavViewContext } from "@/contexts/CartFavViewContext";
 
-export default function CartFavoriteSideMenuWrapper() {
+export default function CartFavoritesDrawerWrapper() {
   const {cartFavView, setCartFavView} = useCartFavViewContext()
 
   function menuSelection(view: string) {

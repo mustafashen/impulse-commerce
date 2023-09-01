@@ -2,8 +2,8 @@
 
 import Image from "next/image"
 import { useState } from "react"
-import MobileHamburgerMenuCategories from "@/app/components/Navbar/MobileHamburgerMenuCategories"
-import HamburgerMenuCategories from "@/app/components/Navbar/HamburgerMenuCategories"
+import MobileHamburgerMenuCategories from "@/components/Navbar/MobileHamburgerMenuCategories"
+import HamburgerMenuCategories from "@/components/Navbar/HamburgerMenuCategories"
 
 
 export default function HamburgerMenu(): React.ReactElement {

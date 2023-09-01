@@ -1,7 +1,7 @@
-import { useCartContext } from "@/app/contexts/CartContext"
+import { useCartContext } from "@/contexts/CartContext"
 
 
-export default function CartSideMenu() {
+export default function CartDrawer() {
   const {cartItems, dispatchCartItems} = useCartContext()
 
   function handleCartItemDelete(item) {

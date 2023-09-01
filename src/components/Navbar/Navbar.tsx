@@ -1,8 +1,8 @@
-import Logo from "@/app/components/Navbar/Logo"
-import HamburgerMenu from "@/app/components/Navbar/HamburgerMenu"
-import NavbarUserSection from "@/app/components/Navbar/NavbarUserSection"
-import NavbarCategories from "@/app/components/Navbar/NavbarCategories"
-import { CategoriesContextProvider } from "@/app/contexts/CategoriesContext"
+import Logo from "@/components/Navbar/Logo"
+import HamburgerMenu from "@/components/Navbar/HamburgerMenu"
+import NavbarUserSection from "@/components/Navbar/NavbarUserSection"
+import NavbarCategories from "@/components/Navbar/NavbarCategories"
+import { CategoriesContextProvider } from "@/contexts/CategoriesContext"
 
 
 export default function Navbar({logoInMiddle = false, verticalMenu= false, categoryInMiddle= false}): React.ReactElement {

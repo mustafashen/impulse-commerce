@@ -1,6 +1,6 @@
 "use client"
-import { useCartContext } from "@/app/contexts/CartContext"
-import { useCartFavViewContext } from "@/app/contexts/CartFavViewContext"
+import { useCartContext } from "@/contexts/CartContext"
+import { useCartFavViewContext } from "@/contexts/CartFavViewContext"
 
 export default function Cart() {
   const {cartFavView, setCartFavView} = useCartFavViewContext()

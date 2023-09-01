@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { useCategoriesContext } from "@/app/contexts/CategoriesContext";
+import { useCategoriesContext } from "@/contexts/CategoriesContext";
 import { Suspense } from "react";
 import Skeleton from "react-loading-skeleton";
 
 type CategoryType = {
-  id: string,
-  name: string,
+  categoryID: string,
+  categoryName: string,
   subCategories?: CategoryType[]
 }
 
@@ -13,7 +13,7 @@ export default function NavbarCategories(): React.ReactElement {
   const {categories} = useCategoriesContext()
   
   function ParseNavbarCategories(category: CategoryType, layer: number = 0): JSX.Element {
-    const { name, id, subCategories } = category
+    const { categoryName, categoryID, subCategories } = category
     // TODO?: For a better implementation of recursive sub menus
     // Instead of using group hover/focus 
     // create a state where we keep track of which components to keep visible
@@ -49,9 +49,9 @@ export default function NavbarCategories(): React.ReactElement {
     const ChildListStyle: () => string = () => layer === 0 ? ChildListMainCategoryStyle : ChildListSubCategoryStyle
 
     if (subCategories) {
-      return <li className={ListElementStyle} key={id}>
+      return <li className={ListElementStyle} key={categoryID}>
           <button className={ButtonStyle()}>
-            {`${name}>`}
+            {`${categoryName}>`}
           </button>
           <ul className={ChildListStyle()}>
             {subCategories.map((el: CategoryType) => {
@@ -60,10 +60,10 @@ export default function NavbarCategories(): React.ReactElement {
             <li className="h-[--sub-cat-h] flex flex-col justify-center">
               <Link
                 href={{
-                pathname: `/categories/${id}`,
-                query: {name}
+                pathname: `/categories/${categoryID}`,
+                query: {categoryName}
                 }}>
-                {`[All ${name}]`}
+                {`[All ${categoryName}]`}
               </Link>
             </li>
           </ul>
@@ -71,14 +71,14 @@ export default function NavbarCategories(): React.ReactElement {
         </li>
     }
 
-    return <li key={id} className="h-[--sub-cat-h] flex flex-col justify-center">
+    return <li key={categoryID} className="h-[--sub-cat-h] flex flex-col justify-center">
       <div>
         <Link
           href={{
-          pathname: `/categories/${id}`,
-          query: {name}
+          pathname: `/categories/${categoryID}`,
+          query: {categoryName}
           }}>
-          {name}
+          {categoryName}
         </Link>
       </div>
     </li>

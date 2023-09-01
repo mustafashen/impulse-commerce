@@ -1,6 +1,6 @@
-import { useFavoritesContext } from "@/app/contexts/FavoriteContext"
+import { useFavoritesContext } from "@/contexts/FavoriteContext"
 
-export default function FavoritesSideMenu() {
+export default function FavoritesDrawer() {
   const {favoriteItems, dispatchFavoriteItems} = useFavoritesContext()
 
   function handleRemoveFav({productID}: {productID: string}) {
